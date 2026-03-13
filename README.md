@@ -10,4 +10,11 @@ Also, inside of information there is another folder called title-about, which co
 if u got any questions just ask me, and if something breaks just ask me, and if u want to change something or want me to upd ur websit ejust ask me
 
 ALSO THIS IS THE MOST IMPORTANT PARTQ!@!!!!!
-If you change something, you have to go to the button below the magnifying glass. It looks like 3 dots connected by a lines. You go there, click commit, and then click
+If you change something, you have to go to the button below the magnifying glass. It looks like 3 dots connected by a lines. You go there, click commit, and then click sync changes if u need to. Thats all. that will make sure that your website updates. Also when you commit give the commit a name thats related to what u update so u can stay organized. like ake it somrthing like "Education Update" or like "Update 1" if u updated a lot of stuff. thanks :D
+ bye
+ bye
+ bye
+  ok bue
+  bye sorru
+  sory
+  sorrry
