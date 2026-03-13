@@ -10,44 +10,44 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
   </head>
 
   <body>
-    <div id="profile" data-source="information/title-about/index.html"></div>
+    <div id="profile" data-source="title-about/index.html"></div>
 
     <main class="container">
 
       <section class="section" id="skills">
         <div class="section__header">
           <h2 class="section__title">Skills</h2>
-          <a class="section__expand" href="information/skills.html#skills">See all</a>
+          <a class="section__expand" href="skills.html#skills">See all</a>
         </div>
-        <div class="card-grid card-grid--preview" data-source="information/skills.html"></div>
+        <div class="card-grid card-grid--preview" data-source="skills.html"></div>
       </section>
 
       <section class="section" id="projects">
         <div class="section__header">
           <h2 class="section__title">Projects</h2>
-          <a class="section__expand" href="information/projects.html#projects">See all</a>
+          <a class="section__expand" href="projects.html#projects">See all</a>
         </div>
-        <div class="card-grid card-grid--preview" data-source="information/projects.html"></div>
+        <div class="card-grid card-grid--preview" data-source="projects.html"></div>
       </section>
 
       <section class="section" id="education">
         <div class="section__header">
           <h2 class="section__title">Education</h2>
-          <a class="section__expand" href="information/education.html#education">See all</a>
+          <a class="section__expand" href="education.html#education">See all</a>
         </div>
-        <div class="card-grid card-grid--preview" data-source="information/education.html"></div>
+        <div class="card-grid card-grid--preview" data-source="education.html"></div>
       </section>
 
       <section class="section" id="contact">
         <div class="section__header">
           <h2 class="section__title">Contact</h2>
-          <a class="section__expand" href="information/contact.html#contact">See all</a>
+          <a class="section__expand" href="contact.html#contact">See all</a>
         </div>
-        <div class="card-grid card-grid--preview" data-source="information/contact.html"></div>
+        <div class="card-grid card-grid--preview" data-source="contact.html"></div>
       </section>
     </main>
 
@@ -90,14 +90,14 @@
 
       document.addEventListener("DOMContentLoaded", () => {
         // profile (title + about) comes from title-about/index.html
-        loadSectionContent("profile", "information/title-about/index.html", "#profile");
+        loadSectionContent("profile", "title-about/index.html", "#profile");
 
         // other sections are card previews
         const sectionSources = {
-          contact: "information/contact.html",
-          skills: "information/skills.html",
-          projects: "information/projects.html",
-          education: "information/education.html",
+          contact: "contact.html",
+          skills: "skills.html",
+          projects: "projects.html",
+          education: "education.html",
         };
 
         for (const [section, src] of Object.entries(sectionSources)) {
