@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jana Elizabeth Gjorevski — Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+
+  <body>
+    <div id="profile" data-source="title-about/index.html"></div>
+
+    <main class="container">
+
+      <section class="section" id="skills">
+        <div class="section__header">
+          <h2 class="section__title">Skills</h2>
+          <a class="section__expand" href="skills.html#skills">See all</a>
+        </div>
+        <div class="card-grid card-grid--preview" data-source="skills.html"></div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section__header">
+          <h2 class="section__title">Projects</h2>
+          <a class="section__expand" href="projects.html#projects">See all</a>
+        </div>
+        <div class="card-grid card-grid--preview" data-source="projects.html"></div>
+      </section>
+
+      <section class="section" id="education">
+        <div class="section__header">
+          <h2 class="section__title">Education</h2>
+          <a class="section__expand" href="education.html#education">See all</a>
+        </div>
+        <div class="card-grid card-grid--preview" data-source="education.html"></div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="section__header">
+          <h2 class="section__title">Contact</h2>
+          <a class="section__expand" href="contact.html#contact">See all</a>
+        </div>
+        <div class="card-grid card-grid--preview" data-source="contact.html"></div>
+      </section>
+    </main>
+
+    
+    <footer class="footer">
+      <p>
+        Built with HTML &amp; CSS. <span class="footer__small">Last updated: March 2026</span>
+      </p>
+    </footer>
+
+    <script>
+      const ALLOWED_SECTIONS = ["profile", "contact", "skills", "projects", "education"];
+
+      function setSectionHtml(sectionId, html) {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+        section.innerHTML = html;
+      }
+
+      async function loadSectionContent(sectionId, sourceFile, selector) {
+        try {
+          const res = await fetch(sourceFile, { cache: "no-store" });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const text = await res.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(text, "text/html");
+          const sourceNode = doc.querySelector(selector);
+          if (!sourceNode) throw new Error(`No element matching ${selector} found in source`);
+          setSectionHtml(sectionId, sourceNode.innerHTML);
+        } catch (error) {
+          setSectionHtml(
+            sectionId,
+            `<div class="card">
+               <p class="card__text">Unable to load ${sectionId} (offline or missing file).</p>
+             </div>`
+          );
+          console.warn("Failed to load section content:", sectionId, error);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // profile (title + about) comes from title-about/index.html
+        loadSectionContent("profile", "title-about/index.html", "#profile");
+
+        // other sections are card previews
+        const sectionSources = {
+          contact: "contact.html",
+          skills: "skills.html",
+          projects: "projects.html",
+          education: "education.html",
+        };
+
+        for (const [section, src] of Object.entries(sectionSources)) {
+          const placeholder = document.querySelector(`#${section} .card-grid[data-source]`);
+          if (!placeholder) continue;
+          loadSectionPreview(section, src);
+        }
+      });
+
+      async function loadSectionPreview(sectionId, sourceFile) {
+        try {
+          const res = await fetch(sourceFile, { cache: "no-store" });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const text = await res.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(text, "text/html");
+          const sourceGrid = doc.querySelector(".card-grid");
+          if (!sourceGrid) throw new Error("No .card-grid found in source");
+
+          const cards = Array.from(sourceGrid.children).filter((el) => el.matches(".card"));
+          const lastThree = cards.slice(-3);
+          const html = lastThree.map((card) => card.outerHTML).join("");
+          setSectionHtml(sectionId, html);
+        } catch (error) {
+          setSectionHtml(
+            sectionId,
+            `<div class="card">
+               <p class="card__text">Unable to load ${sectionId} (offline or missing file).</p>
+             </div>`
+          );
+          console.warn("Failed to load section cards:", sectionId, error);
+        }
+      }
+    </script>
+  </body>
+</html>
